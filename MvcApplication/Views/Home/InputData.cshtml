@@ -1,4 +1,5 @@
-﻿@model MvcApplication.Models.InputDataViewModel
+﻿@using System.Linq
+@model global::MvcApplication.Models.InputDataViewModel
 
 @{
     ViewBag.Title = "InputData";
@@ -7,22 +8,64 @@
 
 <h2>InputData</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th></th>
-    </tr>
+<p>insert data</p>
+<form id="inputForm" class="form-inline">
+    <table>
+        <tr>
+            <td><label for="datepicker1">Parking begin:</label></td>
+            <td>
+                <div class='input-group date' id='datepicker1'>
+                    <input placeholder="Start Date" class="form-control" type="text" name="datepickervalue1" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><label for="datepicker1">Parking end:</label></td>
+            <td>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+                <div class='input-group date' id='datepicker2'>
+                    <input placeholder="End Date" class="form-control" type="text" name="datepickervalue2" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
 
-</table>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <label for="users">Current user:</label>@Html.DropDownListFor(m => m.Clients.First().Id, new SelectList(Model.Clients, "Id", "Name"), new { id = "users", })
+    <input type="button" value="Save" onclick="SaveData($('#inputForm').serializeArray())"></input>
+</form>
+
+<script>
+    $(function () {
+        $("#datepicker1").datetimepicker();
+        $("#datepicker2").datetimepicker();
+    });
+    function SaveData(formData) {
+        console.log(JSON.stringify(formData));
+        $.ajax({
+            type: "POST",
+            url: "/api/rest",
+            data: JSON.stringify(formData),
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            dataType: "json",
+            success: function (data, success) {
+
+                alert(success);
+            },
+
+            error: function (jqXHR, status) {
+                // error handler
+                console.log(jqXHR);
+                alert('fail' + status.code);
+            }
+        });
+    }
+</script>

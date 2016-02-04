@@ -5,12 +5,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using MvcApplication.Models;
+using Newtonsoft.Json;
+using Ninject;
 
 namespace MvcApplication.Controllers
 {
     public class RestController : ApiController
     {
-        IMemoryDatabase _database;
+        [Inject]
+        IMemoryDatabase Database { get; set; }
+
+
         // GET: api/Rest
         public IEnumerable<string> Get()
         {
@@ -24,8 +30,10 @@ namespace MvcApplication.Controllers
         }
 
         // POST: api/Rest
-        public void Post([FromBody]string value)
+        public string Post([FromBody]inputDataForm[] value)
         {
+            //inputDataForm[]  values = JsonConvert.DeserializeObject<inputDataForm[]>(value);
+            return "ok";
         }
 
         // PUT: api/Rest/5

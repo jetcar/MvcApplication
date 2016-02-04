@@ -29,5 +29,10 @@ namespace MvcApplication.Controllers
             model.Clients = _database.GetClientsFromParkingHouse(CURRENTPARKINGHOUSE);
             return View(model);
         }
+
+        public ActionResult Invoices()
+        {
+           return View();
+        }
     }
 }
