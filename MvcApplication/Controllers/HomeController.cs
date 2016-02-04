@@ -20,7 +20,8 @@ namespace MvcApplication.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var parkingInfos = _database.GetCurrentUserParkingInfo(1);
+            return View(parkingInfos);
         }
 
         public ActionResult InputData()

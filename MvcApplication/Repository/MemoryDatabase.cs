@@ -9,7 +9,45 @@ namespace MvcApplication.Repository
 {
     public class MemoryDatabase : IMemoryDatabase
     {
-        private IList<Client> _clients = new List<Client>() { new Client { Id = 1, Name = "Regular1", ParkingHouseId = 1 }, new Client { Id = 2, Name = "Regular2", ParkingHouseId = 1 }, };
+        private IList<Client> _clients = new List<Client>()
+        {
+            new Client { Id = 1, Name = "Regular1", ParkingHouseId = 1 ,ParkingTimeList =
+            {
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
+                    EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
+                },
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
+                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                }
+            }},
+            new PremiumClient { Id = 2, Name = "Premium1", ParkingHouseId = 1 ,ParkingTimeList =
+            {
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
+                    EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
+                },
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
+                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                },
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
+                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                },
+                new ParkingTimeInfoModel()
+                {
+                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
+                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                },
+            }},
+        };
 
         public IList<Client> GetClientsFromParkingHouse(int id)
         {
@@ -20,6 +58,17 @@ namespace MvcApplication.Repository
                 clients.Add(clientCopy);
             }
             return clients;
+        }
+
+        public IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int id)
+        {
+            var parkinginfos = new List<ParkingTimeInfoModel>();
+            foreach (var parkingTimeInfo in _clients.Where(x => x.Id == id).SelectMany(x=>x.ParkingTimeList))
+            {
+                var clientCopy = ObjectCopier.Clone<ParkingTimeInfoModel>(parkingTimeInfo);
+                parkinginfos.Add(clientCopy);
+            }
+            return parkinginfos;
         }
     }
 }

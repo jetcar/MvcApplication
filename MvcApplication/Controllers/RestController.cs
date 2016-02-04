@@ -30,14 +30,14 @@ namespace MvcApplication.Controllers
         }
 
         // POST: api/Rest
-        public string Post([FromBody]inputDataForm[] value)
+        public string Post([FromBody]inputDataForm value)
         {
             //inputDataForm[]  values = JsonConvert.DeserializeObject<inputDataForm[]>(value);
             return "ok";
         }
 
         // PUT: api/Rest/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]inputDataForm[] value)
         {
         }
 

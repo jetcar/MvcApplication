@@ -15,7 +15,7 @@
             <td><label for="datepicker1">Parking begin:</label></td>
             <td>
                 <div class='input-group date' id='datepicker1'>
-                    <input placeholder="Start Date" class="form-control" type="text" name="datepickervalue1" />
+                    <input placeholder="Start Date" class="form-control" type="text" id="datepickervalue1" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -27,7 +27,7 @@
             <td>
 
                 <div class='input-group date' id='datepicker2'>
-                    <input placeholder="End Date" class="form-control" type="text" name="datepickervalue2" />
+                    <input placeholder="End Date" class="form-control" type="text" id="datepickervalue2" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -39,7 +39,7 @@
 
     <br />
     <label for="users">Current user:</label>@Html.DropDownListFor(m => m.Clients.First().Id, new SelectList(Model.Clients, "Id", "Name"), new { id = "users", })
-    <input type="button" value="Save" onclick="SaveData($('#inputForm').serializeArray())"></input>
+    <input type="button" value="Save" onclick="SaveData()"></input>
 </form>
 
 <script>
@@ -47,12 +47,19 @@
         $("#datepicker1").datetimepicker();
         $("#datepicker2").datetimepicker();
     });
-    function SaveData(formData) {
-        console.log(JSON.stringify(formData));
+    function SaveData() {
+
+        var data = {
+            startdate : $("#datepickervalue1").val(),
+            enddate : $("#datepickervalue2").val(),
+            clientId: $("#users").val(),
+            
+        }
+        console.log(JSON.stringify(data));
         $.ajax({
             type: "POST",
             url: "/api/rest",
-            data: JSON.stringify(formData),
+            data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             dataType: "json",

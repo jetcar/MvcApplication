@@ -157,6 +157,7 @@
     <Compile Include="Models\inputDataForm.cs" />
     <Compile Include="Models\InputDataViewModel.cs" />
     <Compile Include="Models\ParkingInfo.cs" />
+    <Compile Include="Models\ParkingTimeInfoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IMemoryDatabase.cs" />
     <Compile Include="Repository\MemoryDatabase.cs" />
@@ -328,9 +329,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\InputData.cshtml" />
-    <Content Include="Views\Home\Invoices.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

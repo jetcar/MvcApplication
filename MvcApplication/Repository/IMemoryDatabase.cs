@@ -10,5 +10,6 @@ namespace MvcApplication.Repository
     public interface IMemoryDatabase
     {
         IList<Client> GetClientsFromParkingHouse(int id);
+        IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int i);
     }
 }

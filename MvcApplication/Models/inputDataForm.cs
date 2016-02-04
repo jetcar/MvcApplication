@@ -7,7 +7,8 @@ namespace MvcApplication.Models
 {
     public class inputDataForm
     {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public DateTime startdate { get; set; }
+        public DateTime enddate { get; set; }
+        public int clientId { get; set; }
     }
 }
