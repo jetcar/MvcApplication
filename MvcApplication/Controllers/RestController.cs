@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvcApplication.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,7 @@ namespace MvcApplication.Controllers
 {
     public class RestController : ApiController
     {
+        IMemoryDatabase _database;
         // GET: api/Rest
         public IEnumerable<string> Get()
         {
