@@ -37,13 +37,13 @@ namespace MvcApplication.Repository
                 },
                 new ParkingTimeInfoModel()
                 {
-                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
-                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                    StartTime = DateTime.Today.AddHours(7).AddMinutes(2),
+                    EndTime = DateTime.Today.AddHours(11).AddMinutes(56),
                 },
                 new ParkingTimeInfoModel()
                 {
-                    StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
-                    EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
+                    StartTime = DateTime.Today.AddHours(22).AddMinutes(10),
+                    EndTime = DateTime.Today.AddHours(22).AddMinutes(35),
                 },
                 new ParkingTimeInfoModel()
                 {

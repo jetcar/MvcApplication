@@ -17,9 +17,4 @@ namespace MvcApplication.Models
             set { _parkingTimeList = value; }
         }
     }
-
-    public class PremiumClient : Client
-    {
-        
-    }
 }

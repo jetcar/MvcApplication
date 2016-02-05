@@ -33,7 +33,8 @@ namespace MvcApplication.Controllers
 
         public ActionResult Invoices()
         {
-           return View();
+            var invoices = new List<InvoiceModel>();
+            return View(invoices);
         }
     }
 }
