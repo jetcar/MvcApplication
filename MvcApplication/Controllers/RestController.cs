@@ -13,9 +13,12 @@ namespace MvcApplication.Controllers
 {
     public class RestController : ApiController
     {
-        [Inject]
         IMemoryDatabase Database { get; set; }
 
+        public RestController(IMemoryDatabase database)
+        {
+            Database = database;
+        }
 
         // GET: api/Rest
         public IEnumerable<string> Get()
@@ -32,7 +35,7 @@ namespace MvcApplication.Controllers
         // POST: api/Rest
         public string Post([FromBody]inputDataForm value)
         {
-            //inputDataForm[]  values = JsonConvert.DeserializeObject<inputDataForm[]>(value);
+            Database.AddParkingInfo(value.clientId, value.startdate, value.enddate);
             return "ok";
         }
 

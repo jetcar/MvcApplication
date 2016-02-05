@@ -20,17 +20,18 @@ namespace MvcApplication
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
-                        "~/Scripts/jquery-ui-*"));
+                        "~/Scripts/jquery-ui-*",
+                        "~/Scripts/jquery.timepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/moment.js",
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap-datetimepicker.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/themes/base/all.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.timepicker.css",
                       "~/Content/site.css"));
         }
     }

@@ -1,3 +1,6 @@
+using System.Web.Http;
+using Ninject.Web.Mvc;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MvcApplication.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MvcApplication.App_Start.NinjectWebCommon), "Stop")]
 
@@ -44,8 +47,10 @@ namespace MvcApplication.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+               // GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
 
                 RegisterServices(kernel);
+
                 return kernel;
             }
             catch
@@ -64,4 +69,5 @@ namespace MvcApplication.App_Start
             kernel.Bind<IMemoryDatabase>().To<MemoryDatabase>().InSingletonScope();
         }        
     }
+    
 }

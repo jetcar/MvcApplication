@@ -11,5 +11,6 @@ namespace MvcApplication.Repository
     {
         IList<Client> GetClientsFromParkingHouse(int id);
         IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int i);
+        void AddParkingInfo(int clientId, DateTime startdate, DateTime enddate);
     }
 }

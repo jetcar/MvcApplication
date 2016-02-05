@@ -9,7 +9,11 @@ namespace MvcApplication.Repository
 {
     public class MemoryDatabase : IMemoryDatabase
     {
-        private IList<Client> _clients = new List<Client>()
+        private IList<Client> _clients;
+
+        public MemoryDatabase()
+        {
+            _clients = new List<Client>()
         {
             new Client { Id = 1, Name = "Regular1", ParkingHouseId = 1 ,ParkingTimeList =
             {
@@ -48,11 +52,12 @@ namespace MvcApplication.Repository
                 },
             }},
         };
+        }
 
         public IList<Client> GetClientsFromParkingHouse(int id)
         {
             var clients = new List<Client>();
-            foreach(var client in _clients.Where(x=>x.ParkingHouseId == id))
+            foreach (var client in _clients.Where(x => x.ParkingHouseId == id))
             {
                 var clientCopy = ObjectCopier.Clone<Client>(client);
                 clients.Add(clientCopy);
@@ -63,12 +68,20 @@ namespace MvcApplication.Repository
         public IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int id)
         {
             var parkinginfos = new List<ParkingTimeInfoModel>();
-            foreach (var parkingTimeInfo in _clients.Where(x => x.Id == id).SelectMany(x=>x.ParkingTimeList))
+            foreach (var parkingTimeInfo in _clients.Where(x => x.Id == id).SelectMany(x => x.ParkingTimeList))
             {
                 var clientCopy = ObjectCopier.Clone<ParkingTimeInfoModel>(parkingTimeInfo);
                 parkinginfos.Add(clientCopy);
             }
             return parkinginfos;
+        }
+
+        public void AddParkingInfo(int clientId, DateTime startdate, DateTime enddate)
+        {
+            var client = _clients.FirstOrDefault(x => x.Id == clientId);
+            if (client == null)
+                throw new Exception("user not found");
+            client.ParkingTimeList.Add(new ParkingTimeInfoModel() { StartTime = startdate, EndTime = enddate });
         }
     }
 }

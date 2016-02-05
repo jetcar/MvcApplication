@@ -12,26 +12,22 @@
 <form id="inputForm" class="form-inline">
     <table>
         <tr>
-            <td><label for="datepicker1">Parking begin:</label></td>
+            <td><label for="datepickervalue1">Parking begin:</label></td>
             <td>
-                <div class='input-group date' id='datepicker1'>
-                    <input placeholder="Start Date" class="form-control" type="text" id="datepickervalue1" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+                <input placeholder="start" id="datepickervalue1"  type="text" class="time ui-timepicker-input" autocomplete="off">                
             </td>
         </tr>
         <tr>
-            <td><label for="datepicker1">Parking end:</label></td>
+            <td><label for="datepickervalue2">Parking end:</label></td>
             <td>
+                <input placeholder="end" id="datepickervalue2" type="text" class="time ui-timepicker-input" autocomplete="off">
 
-                <div class='input-group date' id='datepicker2'>
+                @*<div class='input-group date' id='datepicker2'>
                     <input placeholder="End Date" class="form-control" type="text" id="datepickervalue2" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
-                </div>
+                </div>*@
 
             </td>
         </tr>
@@ -44,8 +40,18 @@
 
 <script>
     $(function () {
-        $("#datepicker1").datetimepicker();
-        $("#datepicker2").datetimepicker();
+        $('#datepickervalue1').timepicker({
+            'minTime': '7:00am',
+            'maxTime': '7:00pm',
+            'showDuration': false,
+            'step': 1
+        });
+        $('#datepickervalue2').timepicker({
+            'minTime': '7:00am',
+            'maxTime': '7:00pm',
+            'showDuration': false,
+            'step': 1
+        });
     });
     function SaveData() {
 
