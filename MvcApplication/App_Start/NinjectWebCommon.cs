@@ -14,6 +14,7 @@ namespace MvcApplication.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Repository;
+    using Services;
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
@@ -67,6 +68,7 @@ namespace MvcApplication.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IMemoryDatabase>().To<MemoryDatabase>().InSingletonScope();
+            kernel.Bind<IInvoiceCalculator>().To<InvoiceCalculator>().InSingletonScope();
         }        
     }
     

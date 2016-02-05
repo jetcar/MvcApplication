@@ -1,0 +1,31 @@
+﻿@model IEnumerable<global::MvcApplication.Models.Client>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        select user to login
+    </p>
+    <table class="table">
+            
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Login", new { clientId = item.Id })
+                
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

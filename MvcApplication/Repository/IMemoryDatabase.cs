@@ -12,5 +12,9 @@ namespace MvcApplication.Repository
         IList<Client> GetClientsFromParkingHouse(int id);
         IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int i);
         void AddParkingInfo(int clientId, DateTime startdate, DateTime enddate);
+        IList<InvoiceModel> GetClientInvoices(int clientId);
+        InvoiceModel GetClientInvoice(int id);
+        Client GetClient(int id);
+        void Save(InvoiceModel invoice);
     }
 }

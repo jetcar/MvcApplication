@@ -14,6 +14,7 @@ namespace MvcApplication.Tests.Services
             IInvoiceCalculator calc = new InvoiceCalculator();
 
             var client = new Client();
+            client.Id = 1;
             client.ParkingTimeList = new[]
             {
                 new ParkingTimeInfoModel()
@@ -29,6 +30,7 @@ namespace MvcApplication.Tests.Services
             };
             var invoice = calc.ClaculateInvoice(client);
             Assert.AreEqual(invoice.Price,11.0m);
+            Assert.IsTrue(invoice.ClientId > 0);
         }
 
         [TestMethod]
@@ -37,6 +39,8 @@ namespace MvcApplication.Tests.Services
             IInvoiceCalculator calc = new InvoiceCalculator();
 
             var client = new PremiumClient();
+            client.Id = 1;
+
             client.ParkingTimeList = new[]
             {
                 new ParkingTimeInfoModel()
@@ -62,6 +66,8 @@ namespace MvcApplication.Tests.Services
             };
             var invoice = calc.ClaculateInvoice(client);
             Assert.AreEqual(invoice.Price,38.25m);
+            Assert.IsTrue(invoice.ClientId > 0);
+
         }
     }
 }

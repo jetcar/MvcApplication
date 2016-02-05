@@ -16,36 +16,9 @@ namespace MvcApplication.Services
             decimal timeRangePriceDay = (decimal)1.5;
             decimal timeRangePriceNight = (decimal)1.0;
             var parkingTimes = client.ParkingTimeList.Where(x => x.Calculated == false);
-            var invoice = new InvoiceModel();
-
-
-            foreach (var time in parkingTimes)
-            {
-                var currentTime = time.StartTime;
-                var parkingInfo = new InvoiceParkingInfo();
-                parkingInfo.StartTime = time.StartTime;
-                do
-                {
-                    if (currentTime.Hour > DAYSTARTHOUR && currentTime.Hour < NIGHTSTARTHOUR)
-                    {
-                        invoice.Price += timeRangePriceDay;
-                        parkingInfo.BillableAmount++;
-                        parkingInfo.Price += timeRangePriceDay;
-                    }
-                    else
-                    {
-                        invoice.Price += timeRangePriceNight;
-                        parkingInfo.BillableAmount++;
-                        parkingInfo.Price += timeRangePriceNight;
-
-
-                    }
-                    currentTime = currentTime.AddMinutes(PARKINGMINTIMERANGE);
-                } while (currentTime < time.EndTime);
-                parkingInfo.EndTime = time.EndTime;
-                invoice.parkingInfo.Add(parkingInfo);
-
-            }
+            var invoice = new InvoiceModel(client.Id);
+            
+            Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
 
             return invoice;
 
@@ -58,8 +31,18 @@ namespace MvcApplication.Services
             decimal timeRangePriceDay = 1.0m;
             decimal timeRangePriceNight = 0.75m;
             var parkingTimes = premiumClient.ParkingTimeList.Where(x => x.Calculated == false);
-            var invoice = new InvoiceModel();
+            var invoice = new InvoiceModel(premiumClient.Id);
+            Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
 
+            invoice.Price += monthlyFee;
+
+            if (invoice.Price > MaxInvoice)
+                invoice.Price = MaxInvoice;
+            return invoice;
+        }
+
+        private void Calculate(InvoiceModel invoice, IEnumerable<ParkingTimeInfoModel> parkingTimes, decimal timeRangePriceDay, decimal timeRangePriceNight)
+        {
             foreach (var time in parkingTimes)
             {
                 var currentTime = time.StartTime;
@@ -67,11 +50,11 @@ namespace MvcApplication.Services
                 parkingInfo.StartTime = time.StartTime;
                 do
                 {
-                    if (currentTime.Hour > DAYSTARTHOUR && currentTime.Hour < NIGHTSTARTHOUR)
+                    if (currentTime.Hour >= DAYSTARTHOUR && currentTime.Hour < NIGHTSTARTHOUR)
                     {
                         invoice.Price += timeRangePriceDay;
                         parkingInfo.BillableAmount++;
-                        parkingInfo.Price+= timeRangePriceDay;
+                        parkingInfo.Price += timeRangePriceDay;
                     }
                     else
                     {
@@ -79,18 +62,12 @@ namespace MvcApplication.Services
                         parkingInfo.BillableAmount++;
                         parkingInfo.Price += timeRangePriceNight;
 
-
                     }
                     currentTime = currentTime.AddMinutes(PARKINGMINTIMERANGE);
                 } while (currentTime < time.EndTime);
                 parkingInfo.EndTime = time.EndTime;
                 invoice.parkingInfo.Add(parkingInfo);
             }
-            invoice.Price += monthlyFee;
-
-            if (invoice.Price > MaxInvoice)
-                invoice.Price = MaxInvoice;
-            return invoice;
         }
     }
 }

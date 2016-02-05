@@ -1,29 +1,26 @@
 ﻿@model System.Collections.Generic.List<global::MvcApplication.Models.InvoiceModel>
 
+
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "InputData";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@Html.ActionLink("create invoice","CreateInvoice")
+
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Parking hours")
-        </th>
-        <th>
-            @Html.DisplayName("Parking price")
-        </th>
-        <th></th>
-    </tr>
+
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Hours)
+                @Html.ActionLink("Invoice detailx","InvoiceDetails",new { id = item.Id })
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.Display(item.Price.ToString())
             </td>
 
         </tr>

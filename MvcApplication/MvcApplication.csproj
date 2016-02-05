@@ -157,6 +157,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,6 +174,7 @@
     <Compile Include="Repository\MemoryDatabase.cs" />
     <Compile Include="Services\IInvoiceCalculator.cs" />
     <Compile Include="Services\InvoiceCalculator.cs" />
+    <Compile Include="Services\SessionManager.cs" />
     <Compile Include="Utils\ObjectCopier.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +262,8 @@
     <Content Include="Views\Home\InputData.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Invoices.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\InvoiceDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

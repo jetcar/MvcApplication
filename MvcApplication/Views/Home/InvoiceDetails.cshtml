@@ -1,0 +1,35 @@
+﻿@model global::MvcApplication.Models.InvoiceModel
+
+@{
+    ViewBag.Title = "InvoiceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>InvoiceDetails</h2>
+
+<div>
+    <h4>InvoiceModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClientId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClientId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
