@@ -14,9 +14,9 @@ namespace MvcApplication.Controllers
     public class RestController : ApiController
     {
         public readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        IMemoryDatabase Database { get; set; }
+        IDatabase Database { get; set; }
 
-        public RestController(IMemoryDatabase database)
+        public RestController(IDatabase database)
         {
             Database = database;
         }

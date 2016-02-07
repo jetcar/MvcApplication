@@ -177,15 +177,14 @@
     </Compile>
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\inputDataForm.cs" />
-    <Compile Include="Models\InputDataViewModel.cs" />
-    <Compile Include="Models\InvoiceModel.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\InvoiceParkingInfo.cs" />
     <Compile Include="Models\ParkingInfo.cs" />
-    <Compile Include="Models\ParkingTimeInfoModel.cs" />
+    <Compile Include="Models\ParkingTimeInfo.cs" />
     <Compile Include="Models\RegularClient.cs" />
     <Compile Include="Models\PremiumClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\IMemoryDatabase.cs" />
+    <Compile Include="Repository\IDatabase.cs" />
     <Compile Include="Repository\MemoryDatabase.cs" />
     <Compile Include="Services\IInvoiceCalculator.cs" />
     <Compile Include="Services\InvoiceCalculator.cs" />

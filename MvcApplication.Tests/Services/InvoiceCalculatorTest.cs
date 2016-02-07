@@ -17,12 +17,12 @@ namespace MvcApplication.Tests.Services
             client.Id = 1;
             var parkingTimeList = new[]
             {
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
                     EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
@@ -43,22 +43,22 @@ namespace MvcApplication.Tests.Services
 
             var parkingTimeList = new[]
             {
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
                     EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(7).AddMinutes(2),
                     EndTime = DateTime.Today.AddHours(11).AddMinutes(56),
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(22).AddMinutes(10),
                     EndTime = DateTime.Today.AddHours(22).AddMinutes(35),
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),

@@ -11,9 +11,9 @@ namespace MvcApplication.Controllers
     public class LoginController : BaseController
     {
         private int CURRENTPARKINGHOUSE = 1;
-        private IMemoryDatabase _database;
+        private IDatabase _database;
 
-        public LoginController(IMemoryDatabase database)
+        public LoginController(IDatabase database)
         {
 
             _database = database;

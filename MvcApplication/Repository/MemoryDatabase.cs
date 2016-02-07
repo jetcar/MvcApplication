@@ -7,33 +7,33 @@ using System.Web;
 
 namespace MvcApplication.Repository
 {
-    public class MemoryDatabase : IMemoryDatabase
+    public class MemoryDatabase : IDatabase
     {
         private IList<Client> _clients;
-        private IList<InvoiceModel> _invoices;
-        private IList<ParkingTimeInfoModel> _parkingTimeList;
+        private IList<Invoice> _invoices;
+        private IList<ParkingTimeInfo> _parkingTimeList;
         private int _invoiceSeq = 1;
         private int _parkingInfoSeq = 1;
 
         public MemoryDatabase()
         {
-            _invoices = new List<InvoiceModel>();
+            _invoices = new List<Invoice>();
             _clients = new List<Client>()
                 {
                     new RegularClient { Id = 1, Name = "Regular1", ParkingHouseId = 1 },
                     new PremiumClient { Id = 2, Name = "Premium1", ParkingHouseId = 1 },
                 };
-            _parkingTimeList = new List<ParkingTimeInfoModel>()
+            _parkingTimeList = new List<ParkingTimeInfo>()
             {
 
-                 new ParkingTimeInfoModel()
+                 new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
                     EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
                     Id = _parkingInfoSeq++,
                     ClientId = 1,
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
@@ -43,28 +43,28 @@ namespace MvcApplication.Repository
 
 
 
-                    new ParkingTimeInfoModel()
+                    new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(8).AddMinutes(12),
                     EndTime = DateTime.Today.AddHours(10).AddMinutes(45),
                     Id = _parkingInfoSeq++,
                     ClientId = 2,
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(7).AddMinutes(2),
                     EndTime = DateTime.Today.AddHours(11).AddMinutes(56),
                     Id = _parkingInfoSeq++,
                     ClientId = 2,
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(22).AddMinutes(10),
                     EndTime = DateTime.Today.AddHours(22).AddMinutes(35),
                     Id = _parkingInfoSeq++,
                     ClientId = 2,
                 },
-                new ParkingTimeInfoModel()
+                new ParkingTimeInfo()
                 {
                     StartTime = DateTime.Today.AddHours(19).AddMinutes(40),
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
@@ -85,9 +85,9 @@ namespace MvcApplication.Repository
             return clients;
         }
 
-        public IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int id)
+        public IList<ParkingTimeInfo> GetCurrentUserParkingInfo(int id)
         {
-            var parkinginfos = new List<ParkingTimeInfoModel>();
+            var parkinginfos = new List<ParkingTimeInfo>();
             foreach (var parkingTimeInfo in _parkingTimeList.Where(x => x.ClientId == id).Where(x => x.Calculated == false))
             {
                 var clientCopy = ObjectCopier.Clone(parkingTimeInfo);
@@ -102,13 +102,13 @@ namespace MvcApplication.Repository
             var client = _clients.FirstOrDefault(x => x.Id == clientId);
             if (client == null)
                 throw new Exception("user not found");
-            _parkingTimeList.Add(new ParkingTimeInfoModel() { ClientId = clientId, StartTime = startdate, EndTime = enddate, Id = _parkingInfoSeq++ });
+            _parkingTimeList.Add(new ParkingTimeInfo() { ClientId = clientId, StartTime = startdate, EndTime = enddate, Id = _parkingInfoSeq++ });
         }
 
 
-        public IList<InvoiceModel> GetClientInvoices(int clientId)
+        public IList<Invoice> GetClientInvoices(int clientId)
         {
-            var invoices = new List<InvoiceModel>();
+            var invoices = new List<Invoice>();
             foreach (var invoice in _invoices.Where(x => x.ClientId == clientId))
             {
                 var invoiceCopy = ObjectCopier.Clone(invoice);
@@ -125,7 +125,7 @@ namespace MvcApplication.Repository
             return ObjectCopier.Clone(client);
         }
 
-        public InvoiceModel GetClientInvoice(int id)
+        public Invoice GetClientInvoice(int id)
         {
             var invoice = _invoices.FirstOrDefault(x => x.Id == id);
             if (invoice == null)
@@ -133,13 +133,13 @@ namespace MvcApplication.Repository
             return ObjectCopier.Clone(invoice);
         }
 
-        public void Save(InvoiceModel invoice)
+        public void Save(Invoice invoice)
         {
             invoice.Id = _invoiceSeq++;
             _invoices.Add(invoice);
         }
 
-        public void Save(IList<ParkingTimeInfoModel> parkingInfo)
+        public void Save(IList<ParkingTimeInfo> parkingInfo)
         {
             foreach (var parkingTimeInfoModel in parkingInfo)
             {

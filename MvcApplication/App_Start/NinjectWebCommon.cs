@@ -67,7 +67,7 @@ namespace MvcApplication.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IMemoryDatabase>().To<MemoryDatabase>().InSingletonScope();
+            kernel.Bind<IDatabase>().To<MemoryDatabase>().InSingletonScope();
             kernel.Bind<IInvoiceCalculator>().To<InvoiceCalculator>().InSingletonScope();
         }        
     }

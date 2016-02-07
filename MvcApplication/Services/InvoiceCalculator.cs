@@ -12,7 +12,7 @@ namespace MvcApplication.Services
         private const int NIGHTSTARTHOUR = 19;
         private const int PARKINGMINTIMERANGE = 30;
 
-        public InvoiceModel CalculateInvoice(Client client, IList<ParkingTimeInfoModel> parkingTimes)
+        public Invoice CalculateInvoice(Client client, IList<ParkingTimeInfo> parkingTimes)
         {
             if (client is RegularClient)
             {
@@ -24,11 +24,11 @@ namespace MvcApplication.Services
             }
             return null;
         }
-        private InvoiceModel CalculateInvoice(RegularClient client, IList<ParkingTimeInfoModel> parkingTimes)
+        private Invoice CalculateInvoice(RegularClient client, IList<ParkingTimeInfo> parkingTimes)
         {
             decimal timeRangePriceDay = (decimal)1.5;
             decimal timeRangePriceNight = (decimal)1.0;
-            var invoice = new InvoiceModel(client.Id);
+            var invoice = new Invoice(client.Id);
             
             Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
 
@@ -36,13 +36,13 @@ namespace MvcApplication.Services
 
         }
 
-        private InvoiceModel CalculateInvoice(PremiumClient premiumClient, IList<ParkingTimeInfoModel> parkingTimes)
+        private Invoice CalculateInvoice(PremiumClient premiumClient, IList<ParkingTimeInfo> parkingTimes)
         {
             decimal MaxInvoice = 300.0m;
             decimal monthlyFee = 20.0m;
             decimal timeRangePriceDay = 1.0m;
             decimal timeRangePriceNight = 0.75m;
-            var invoice = new InvoiceModel(premiumClient.Id);
+            var invoice = new Invoice(premiumClient.Id);
             Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
 
             invoice.Price += monthlyFee;
@@ -52,7 +52,7 @@ namespace MvcApplication.Services
             return invoice;
         }
 
-        private void Calculate(InvoiceModel invoice, IEnumerable<ParkingTimeInfoModel> parkingTimes, decimal timeRangePriceDay, decimal timeRangePriceNight)
+        private void Calculate(Invoice invoice, IEnumerable<ParkingTimeInfo> parkingTimes, decimal timeRangePriceDay, decimal timeRangePriceNight)
         {
             foreach (var parkingTime in parkingTimes)
             {

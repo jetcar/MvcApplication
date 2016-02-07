@@ -3,7 +3,7 @@ using System;
 namespace MvcApplication.Models
 {
     [Serializable]
-    public class ParkingTimeInfoModel
+    public class ParkingTimeInfo
     {
         public int Id { get; set; }
         public DateTime StartTime { get; set; }

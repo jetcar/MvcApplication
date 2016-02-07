@@ -6,7 +6,7 @@ using System.Web;
 namespace MvcApplication.Models
 {
     [Serializable]
-    public class Client
+    public abstract class Client
     {
         public int Id { get; set; }
         public string Name { get; set; }

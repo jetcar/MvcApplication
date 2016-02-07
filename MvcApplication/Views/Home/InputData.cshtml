@@ -1,5 +1,4 @@
-﻿@using System.Linq
-@model global::MvcApplication.Models.InputDataViewModel
+﻿@model IList<global::MvcApplication.Models.Client>
 
 @{
     ViewBag.Title = "InputData";
@@ -26,7 +25,7 @@
     </table>
 
     <br />
-    <label for="users">Current user:</label>@Html.DropDownListFor(m => m.Clients.First().Id, new SelectList(Model.Clients, "Id", "Name"), new { id = "users", })
+    <label for="users">Current user:</label>@Html.DropDownListFor(m => m.First().Id, new SelectList(Model, "Id", "Name"), new { id = "users", })
     <input type="button" value="Save" onclick="SaveData()"></input>
 </form>
 

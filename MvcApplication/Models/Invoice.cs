@@ -6,9 +6,9 @@ using System.Web;
 namespace MvcApplication.Models
 {
     [Serializable]
-    public class InvoiceModel
+    public class Invoice
     {
-        public InvoiceModel(int clientId)
+        public Invoice(int clientId)
         {
             ClientId = clientId;
         }

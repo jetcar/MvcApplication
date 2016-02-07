@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace MvcApplication.Repository
 {
-    public interface IMemoryDatabase
+    public interface IDatabase
     {
         IList<Client> GetClientsFromParkingHouse(int id);
-        IList<ParkingTimeInfoModel> GetCurrentUserParkingInfo(int i);
+        IList<ParkingTimeInfo> GetCurrentUserParkingInfo(int i);
         void AddParkingInfo(int clientId, DateTime startdate, DateTime enddate);
-        IList<InvoiceModel> GetClientInvoices(int clientId);
-        InvoiceModel GetClientInvoice(int id);
+        IList<Invoice> GetClientInvoices(int clientId);
+        Invoice GetClientInvoice(int id);
         Client GetClient(int id);
-        void Save(InvoiceModel invoice);
-        void Save(IList<ParkingTimeInfoModel> parkingInfo);
+        void Save(Invoice invoice);
+        void Save(IList<ParkingTimeInfo> parkingInfo);
     }
 }

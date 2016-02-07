@@ -11,11 +11,11 @@ namespace MvcApplication.Controllers
 {
     public class HomeController : BaseController
     {
-        IMemoryDatabase _database;
+        IDatabase _database;
         IInvoiceCalculator _invoiceCalculator;
         const int CURRENTPARKINGHOUSE = 1;
 
-        public HomeController(IMemoryDatabase dbService, IInvoiceCalculator invoiceCalculator)
+        public HomeController(IDatabase dbService, IInvoiceCalculator invoiceCalculator)
         {
             _database = dbService;
             _invoiceCalculator = invoiceCalculator; 
@@ -31,9 +31,8 @@ namespace MvcApplication.Controllers
         public ActionResult InputData()
         {
             logger.Debug("input test data");
-            var model = new InputDataViewModel();
-            model.Clients = _database.GetClientsFromParkingHouse(CURRENTPARKINGHOUSE);
-            return View(model);
+            var clients = _database.GetClientsFromParkingHouse(CURRENTPARKINGHOUSE);
+            return View(clients);
         }
 
         public ActionResult Invoices()
