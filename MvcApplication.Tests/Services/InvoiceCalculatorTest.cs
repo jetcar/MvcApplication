@@ -13,9 +13,9 @@ namespace MvcApplication.Tests.Services
         {
             IInvoiceCalculator calc = new InvoiceCalculator();
 
-            var client = new Client();
+            Client client = new RegularClient();
             client.Id = 1;
-            client.ParkingTimeList = new[]
+            var parkingTimeList = new[]
             {
                 new ParkingTimeInfoModel()
                 {
@@ -28,7 +28,7 @@ namespace MvcApplication.Tests.Services
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
                 },
             };
-            var invoice = calc.ClaculateInvoice(client);
+            var invoice = calc.CalculateInvoice(client,parkingTimeList);
             Assert.AreEqual(invoice.Price,11.0m);
             Assert.IsTrue(invoice.ClientId > 0);
         }
@@ -38,10 +38,10 @@ namespace MvcApplication.Tests.Services
         {
             IInvoiceCalculator calc = new InvoiceCalculator();
 
-            var client = new PremiumClient();
+            Client client = new PremiumClient();
             client.Id = 1;
 
-            client.ParkingTimeList = new[]
+            var parkingTimeList = new[]
             {
                 new ParkingTimeInfoModel()
                 {
@@ -64,7 +64,7 @@ namespace MvcApplication.Tests.Services
                     EndTime = DateTime.Today.AddHours(20).AddMinutes(35),
                 },
             };
-            var invoice = calc.ClaculateInvoice(client);
+            var invoice = calc.CalculateInvoice(client, parkingTimeList);
             Assert.AreEqual(invoice.Price,38.25m);
             Assert.IsTrue(invoice.ClientId > 0);
 

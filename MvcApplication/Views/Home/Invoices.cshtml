@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<global::MvcApplication.Models.InvoiceModel>
+﻿@model IList<global::MvcApplication.Models.InvoiceModel>
 
 
 @{
@@ -6,23 +6,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@Html.ActionLink("create invoice","CreateInvoice")
-
+@if (ViewBag.ShowCreate)
+{
+    @Html.ActionLink("Create invoice", "CreateInvoice")
+}
 
 <table class="table">
-
-
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.ActionLink("Invoice detailx","InvoiceDetails",new { id = item.Id })
+                @Html.ActionLink("Invoice details","InvoiceDetails",new { id = item.Id })
             </td>
             <td>
-                @Html.Display(item.Price.ToString())
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
-
         </tr>
     }
 

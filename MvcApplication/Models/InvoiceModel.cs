@@ -5,6 +5,7 @@ using System.Web;
 
 namespace MvcApplication.Models
 {
+    [Serializable]
     public class InvoiceModel
     {
         public InvoiceModel(int clientId)
@@ -21,14 +22,6 @@ namespace MvcApplication.Models
             set { _parkingInfo = value; }
         }
 
-        public decimal Price { get; set; }
-    }
-
-    public class InvoiceParkingInfo
-    {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public int BillableAmount { get; set; }
         public decimal Price { get; set; }
     }
 }

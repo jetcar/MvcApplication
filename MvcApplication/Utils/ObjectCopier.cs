@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
+using System.Xml.Serialization;
 
 namespace MvcApplication.Utils
 {
@@ -17,10 +18,14 @@ namespace MvcApplication.Utils
             {
                 return default(T);
             }
-
-            var json = JsonConvert.SerializeObject(source);
-
-            return JsonConvert.DeserializeObject<T>(json);
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            using (stream)
+            {
+                formatter.Serialize(stream, source);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (T)formatter.Deserialize(stream);
+            }
         }
     }
 }

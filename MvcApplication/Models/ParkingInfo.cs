@@ -5,6 +5,7 @@ using System.Web;
 
 namespace MvcApplication.Models
 {
+    [Serializable]
     public class ParkingInfo
     {
         public int ClientId { get; set; }

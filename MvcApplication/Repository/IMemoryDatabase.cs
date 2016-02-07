@@ -16,5 +16,6 @@ namespace MvcApplication.Repository
         InvoiceModel GetClientInvoice(int id);
         Client GetClient(int id);
         void Save(InvoiceModel invoice);
+        void Save(IList<ParkingTimeInfoModel> parkingInfo);
     }
 }

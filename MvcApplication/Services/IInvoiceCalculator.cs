@@ -5,7 +5,6 @@ namespace MvcApplication.Services
 {
     public interface IInvoiceCalculator
     {
-        InvoiceModel ClaculateInvoice(Client client);
-        InvoiceModel ClaculateInvoice(PremiumClient premiumClient);
+        InvoiceModel CalculateInvoice(Client client, IList<ParkingTimeInfoModel> parkingInfo);
     }
 }

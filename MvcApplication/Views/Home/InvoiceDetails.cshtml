@@ -1,26 +1,57 @@
 ﻿@model global::MvcApplication.Models.InvoiceModel
 
 @{
-    ViewBag.Title = "InvoiceDetails";
+    ViewBag.Title = "Invoice Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>InvoiceDetails</h2>
 
 <div>
-    <h4>InvoiceModel</h4>
+
+    <table class="table">
+
+        <tr>
+            <td>
+                @Html.DisplayName("Start time")
+            </td>
+            <td>
+                @Html.DisplayName("End time")
+            </td>
+            <td>
+                @Html.DisplayName("Amount")
+            </td>
+            <td>
+                @Html.DisplayName("Price")
+
+
+            </td>
+
+        </tr>
+        @foreach (var item in Model.parkingInfo)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillableAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+            </tr>
+        }
+
+    </table>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ClientId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ClientId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayName("Total price")
         </dt>
 
         <dd>
@@ -30,6 +61,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Invoices")
 </p>

@@ -37,7 +37,7 @@ namespace MvcApplication.Controllers
         public ActionResult Invoices()
         {
             var invoices = _database.GetClientInvoices(SessionManager.GetClientID(Session));
-
+            ViewBag.ShowCreate = _database.GetCurrentUserParkingInfo(SessionManager.GetClientID(Session)).Count > 0;
             return View(invoices);
         }
 
@@ -50,7 +50,9 @@ namespace MvcApplication.Controllers
         public ActionResult CreateInvoice()
         {
             var client = _database.GetClient(SessionManager.GetClientID(Session));
-            var invoice = _invoiceCalculator.ClaculateInvoice(client);
+            var parkingInfo = _database.GetCurrentUserParkingInfo(SessionManager.GetClientID(Session));
+            var invoice = _invoiceCalculator.CalculateInvoice(client, parkingInfo);
+            _database.Save(parkingInfo);
             _database.Save(invoice);
             return Redirect("Invoices");
         }

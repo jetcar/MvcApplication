@@ -11,11 +11,23 @@ namespace MvcApplication.Services
         private const int DAYSTARTHOUR = 7;
         private const int NIGHTSTARTHOUR = 19;
         private const int PARKINGMINTIMERANGE = 30;
-        public InvoiceModel ClaculateInvoice(Client client)
+
+        public InvoiceModel CalculateInvoice(Client client, IList<ParkingTimeInfoModel> parkingTimes)
+        {
+            if (client is RegularClient)
+            {
+                return CalculateInvoice(client as RegularClient, parkingTimes);
+            }
+            if (client is PremiumClient)
+            {
+                return CalculateInvoice(client as PremiumClient, parkingTimes);
+            }
+            return null;
+        }
+        private InvoiceModel CalculateInvoice(RegularClient client, IList<ParkingTimeInfoModel> parkingTimes)
         {
             decimal timeRangePriceDay = (decimal)1.5;
             decimal timeRangePriceNight = (decimal)1.0;
-            var parkingTimes = client.ParkingTimeList.Where(x => x.Calculated == false);
             var invoice = new InvoiceModel(client.Id);
             
             Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
@@ -24,13 +36,12 @@ namespace MvcApplication.Services
 
         }
 
-        public InvoiceModel ClaculateInvoice(PremiumClient premiumClient)
+        private InvoiceModel CalculateInvoice(PremiumClient premiumClient, IList<ParkingTimeInfoModel> parkingTimes)
         {
             decimal MaxInvoice = 300.0m;
             decimal monthlyFee = 20.0m;
             decimal timeRangePriceDay = 1.0m;
             decimal timeRangePriceNight = 0.75m;
-            var parkingTimes = premiumClient.ParkingTimeList.Where(x => x.Calculated == false);
             var invoice = new InvoiceModel(premiumClient.Id);
             Calculate(invoice, parkingTimes, timeRangePriceDay, timeRangePriceNight);
 
@@ -43,11 +54,11 @@ namespace MvcApplication.Services
 
         private void Calculate(InvoiceModel invoice, IEnumerable<ParkingTimeInfoModel> parkingTimes, decimal timeRangePriceDay, decimal timeRangePriceNight)
         {
-            foreach (var time in parkingTimes)
+            foreach (var parkingTime in parkingTimes)
             {
-                var currentTime = time.StartTime;
+                var currentTime = parkingTime.StartTime;
                 var parkingInfo = new InvoiceParkingInfo();
-                parkingInfo.StartTime = time.StartTime;
+                parkingInfo.StartTime = parkingTime.StartTime;
                 do
                 {
                     if (currentTime.Hour >= DAYSTARTHOUR && currentTime.Hour < NIGHTSTARTHOUR)
@@ -64,9 +75,11 @@ namespace MvcApplication.Services
 
                     }
                     currentTime = currentTime.AddMinutes(PARKINGMINTIMERANGE);
-                } while (currentTime < time.EndTime);
-                parkingInfo.EndTime = time.EndTime;
+                } while (currentTime < parkingTime.EndTime);
+                parkingInfo.EndTime = parkingTime.EndTime;
+                parkingTime.Calculated = true;
                 invoice.parkingInfo.Add(parkingInfo);
+                
             }
         }
     }
