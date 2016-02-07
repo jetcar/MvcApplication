@@ -13,6 +13,7 @@ namespace MvcApplication.Controllers
 {
     public class RestController : ApiController
     {
+        public readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         IMemoryDatabase Database { get; set; }
 
         public RestController(IMemoryDatabase database)
@@ -35,6 +36,8 @@ namespace MvcApplication.Controllers
         // POST: api/Rest
         public string Post([FromBody]inputDataForm value)
         {
+            logger.DebugFormat("input data: {0}",value.ToString());
+
             Database.AddParkingInfo(value.clientId, value.startdate, value.enddate);
             return "ok";
         }

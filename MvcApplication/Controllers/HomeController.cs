@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MvcApplication.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         IMemoryDatabase _database;
         IInvoiceCalculator _invoiceCalculator;
@@ -23,12 +23,14 @@ namespace MvcApplication.Controllers
 
         public ActionResult Index()
         {
+            logger.Debug("list parking info");
             var parkingInfos = _database.GetCurrentUserParkingInfo(SessionManager.GetClientID(Session));
             return View(parkingInfos);
         }
 
         public ActionResult InputData()
         {
+            logger.Debug("input test data");
             var model = new InputDataViewModel();
             model.Clients = _database.GetClientsFromParkingHouse(CURRENTPARKINGHOUSE);
             return View(model);
@@ -36,6 +38,7 @@ namespace MvcApplication.Controllers
 
         public ActionResult Invoices()
         {
+            logger.Debug("list invoices");
             var invoices = _database.GetClientInvoices(SessionManager.GetClientID(Session));
             ViewBag.ShowCreate = _database.GetCurrentUserParkingInfo(SessionManager.GetClientID(Session)).Count > 0;
             return View(invoices);
@@ -43,12 +46,14 @@ namespace MvcApplication.Controllers
 
         public ActionResult InvoiceDetails(int id)
         {
+            logger.Debug("invoice details");
             var invoice = _database.GetClientInvoice(id);
             return View(invoice);
         }
 
         public ActionResult CreateInvoice()
         {
+            logger.Debug("create invoice");
             var client = _database.GetClient(SessionManager.GetClientID(Session));
             var parkingInfo = _database.GetCurrentUserParkingInfo(SessionManager.GetClientID(Session));
             var invoice = _invoiceCalculator.CalculateInvoice(client, parkingInfo);

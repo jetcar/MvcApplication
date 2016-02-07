@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace MvcApplication.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private int CURRENTPARKINGHOUSE = 1;
         private IMemoryDatabase _database;
@@ -26,6 +26,8 @@ namespace MvcApplication.Controllers
 
         public ActionResult Login(int clientId)
         {
+            logger.DebugFormat("Login as {0}",clientId);
+
             SessionManager.SetClientId(Session, clientId);
             return RedirectToAction("Index", "Home");
         }
